@@ -6,40 +6,41 @@ import (
 	"time"
 )
 
-func GenerateRoomNumbers(room [5]bool) int {
+func generateRoomNumbers(room [5]bool) int {
 	rand.Seed(time.Now().UnixNano())
 	roomNumber := rand.Intn(5)
-	if room[roomNumber] == false {
-		GenerateRoomNumbers(room)
+	if room[roomNumber] == true {
+		generateRoomNumbers(room)
 	}
 	return roomNumber
 }
 
-func AssignRoom(roomNumber, userInput int, room [5]bool) string {
-	if userInput <= 5 && roomNumber <= 5 {
+func AssignRoom() int {
+	var room [5]bool
+	roomNumber := generateRoomNumbers(room)
+	fmt.Println(roomNumber)
+	if roomNumber <= (len(room))-1 {
 		room[roomNumber] = true
-		fmt.Println("You Room is room ", roomNumber+1)
-	} else {
-		fmt.Println("You have to pick between room 1 - 5!")
+		return roomNumber + 1
 	}
-	return ""
+	return 0
 }
 
-func GenerateBedSpaceNumbers(bed []bool) int {
+func generateBedSpaceNumbers(bed [5]bool) int {
 	rand.Seed(time.Now().UnixNano())
 	bedNumber := rand.Intn(5)
-	if bed[bedNumber] == false {
-		GenerateBedSpaceNumbers(bed)
+	if bed[bedNumber] == true {
+		generateBedSpaceNumbers(bed)
 	}
 	return bedNumber
 }
 
-func AssignBed(bedNumber, userInput int, bed [5]bool) string {
-	if userInput <= 5 && bedNumber <= 5 {
+func AssignBed() int {
+	var bed [5]bool
+	bedNumber := generateBedSpaceNumbers(bed)
+	if bedNumber <= (len(bed))-1 {
 		bed[bedNumber] = true
-		fmt.Println("You Bed Number is ", bedNumber+1)
-	} else {
-		fmt.Println("You have to pick between bed 1 - 5!")
+		return bedNumber + 1
 	}
-	return ""
+	return 0
 }
